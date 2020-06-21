@@ -1,5 +1,5 @@
 ### PHP based mailer system  
-#### Helps in sending mails by the different type of computer applications.
+#### Many PHP developers need to send email from their code. The only PHP function that supports this is mail(). However, it does not provide any assistance for making use of popular features such as encryption, authentication, HTML messages, and attachments. So I developed a PHP Mailer System using PHPMailer library, which is embedded in a web application used to send emails safely and easily via PHP code from a web server.
 ### Install Xampp
 
 * For phpmyadmin, sql and apache.
