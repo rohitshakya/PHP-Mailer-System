@@ -1,11 +1,13 @@
 
 
 <?php
-mysqli_connect("localhost","root","");
-mysqli_select_db("mydb");
-$email=$_REQUEST["email"];
-$query=mysqli_query("select * from register where email='$email'");
-$row=mysqli_fetch_array($query);
+session_start();
+$sender=$_REQUEST["sender"];
+$password=$_REQUEST["pass"];
+$receiver=$_REQUEST["receiver"];
+$subject=$_REQUEST["subject"];
+$msg=$_REQUEST["msgBody"];
+
 
 require 'PHPMailer-master/PHPMailerAutoload.php';
 
@@ -27,22 +29,22 @@ $mail = new PHPMailer();
   //Set this to true if SMTP host requires authentication to send email
   $mail->SMTPAuth = TRUE;
   //Provide username and password
-  $mail->Username = "rohit.rkshakya@gmail.com";
-  $mail->Password = "admintypeyourpassword";
+  $mail->Username = $sender;
+  $mail->Password = $password;
   //If SMTP requires TLS encryption then set it
   $mail->SMTPSecure = "false";
   $mail->Port = 587;
   //Set TCP port to connect to
   
-  $mail->From = "rohit.rkshakya@gmail.com";
+  $mail->From = $sender;
   $mail->FromName = "Rohit Shakya";
   
   $mail->addAddress("rohitshakya.mcs19.du@gmail.com");//Receiver's address
   
   $mail->isHTML(true);
  
-  $mail->Subject = "test mail";
-  $mail->Body = "<i>turn on: allow less secure app in gmail</i>";
+  $mail->Subject = $subject;
+  $mail->Body = $msg;
   $mail->AltBody = "This is the plain text version of the email content";
   if(!$mail->send())
   {
@@ -50,5 +52,6 @@ $mail = new PHPMailer();
   }
   else
   {
-   echo "Message has been sent successfully";
+   $_SESSION["msg"]= " :Mail sent successfully";
+   header("location: index.php");
   }
